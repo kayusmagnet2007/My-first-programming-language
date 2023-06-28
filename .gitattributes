@@ -1,2 +1,30 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+<BinaryBot>
+  <Strategy name="DigitPrimeStrategy" description="An xml binary bot script that uses last tick analysis. It looks for prime digits when the collection of zeros is greater than two.">
+    <Indicators>
+      <Indicator name="LastTickAnalysis" />
+    </Indicators>
+    
+    <Conditions>
+      <Condition name="CollectionOfZerosGreaterThanTwo">
+        <IndicatorRef name="LastTickAnalysis" />
+        <Expression>count_zeros > 2</Expression>
+      </Condition>
+      
+      <Condition name="PrimeDigitConfirmation">
+        <Expression>is_prime(last_tick_digit)</Expression>
+      </Condition>
+    </Conditions>
+    
+    <Actions>
+      <Action name="PurchaseContracts">
+        <ConditionRef name="CollectionOfZerosGreaterThanTwo" />
+        <ConditionRef name="PrimeDigitConfirmation" />
+      </Action>
+    </Actions>
+  </Strategy>
+  
+  <!-- Additional strategy configurations, variables, and settings can be added here -->
+  
+</BinaryBot>
